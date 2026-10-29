@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="zh-Hant-TW" data-theme="morning">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f0e4">
+  <meta name="description" content="走進木語重生 5R 群島，體驗校園生活中的環境選擇。">
+  <title>木語重生-5R實踐｜校園循環・環境實作與你同行</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#places">跳到地點清單</a>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="木語重生 5R 實踐首頁">
+        <span class="brand-mark" aria-hidden="true">木</span>
+        <span><strong>木語重生</strong><small>5R 實踐・校園循環群島</small></span>
+      </a>
+      <div class="top-actions">
+        <div class="clock-pill" aria-live="polite"><span class="clock-dot"></span><span id="clockText">晨光 08:30</span></div>
+        <button class="icon-button help-button" id="helpBtn" type="button" aria-label="開啟操作說明">？<span class="button-label">說明</span></button>
+      </div>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-labelledby="siteTitle">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-leaf">✳</span> 一座島，一種生活選擇</div>
+          <h1 id="siteTitle">木語重生<span>-5R實踐</span></h1>
+          <p>走進校園日常，親自體驗珍惜物品、循環使用的不同選擇。</p>
+          <div class="hero-meta"><span class="draft-chip">情境示意・一起探索</span><span>為國中學生設計</span></div>
+        </div>
+        <div class="mascot-note" aria-label="小鷺導覽提示">
+          <div class="mascot" aria-hidden="true"><span class="mascot-face">◡</span><span class="mascot-vest"></span></div>
+          <div><strong>小鷺陪你逛島！</strong><span>點居民聊聊，看看 5R 怎麼走進生活。</span></div>
+        </div>
+      </section>
+
+      <section class="world-layout" aria-label="互動群島與探索工具">
+        <div class="world-column">
+          <div class="scene-toolbar">
+            <div class="scene-heading"><span class="live-indicator"></span><strong>群島實境</strong><span class="subtle">拖曳旋轉・滾輪縮放・點選探索</span></div>
+            <div class="scene-tools">
+              <button class="tool-button" id="resetView" type="button">⌖ <span>回到全景</span></button>
+              <button class="tool-button" id="qualityBtn" type="button" aria-pressed="false">◈ <span>高畫質</span></button>
+            </div>
+          </div>
+          <div class="scene-wrap" id="sceneWrap">
+            <div id="scene" role="img" aria-label="可旋轉探索、點選島嶼與居民的 3D 木語重生群島"></div>
+            <div class="scene-vignette"></div>
+            <div class="scene-corner scene-top-left"><span class="scene-coordinate">循環海域・新北</span><span class="draft-micro">生活情境示意</span></div>
+            <div class="scene-corner scene-bottom-left"><span class="mouse-hint">↗ 拖曳探索這片群島</span></div>
+            <div class="scene-corner scene-bottom-right"><span id="peopleCount">島上居民散步中</span></div>
+            <div id="fallback" class="fallback-message" hidden>3D 場景暫時無法載入，所有島嶼內容仍可從下方地點清單閱讀。</div>
+            <div id="residentBubble" class="resident-bubble" hidden></div>
+          </div>
+          <div class="scene-legend"><span><i class="legend-mark landmark-mark"></i>島上地標</span><span><i class="legend-mark villager-mark"></i>點居民聊聊</span><span class="legend-note">模型與角色皆為原創幾何插畫</span></div>
+          <div class="time-controls" aria-label="場景時間控制">
+            <span class="control-title">島上的時間</span>
+            <div class="segmented" role="group" aria-label="選擇場景時間">
+              <button data-time="day" type="button" aria-pressed="true">☀️ <span>白天</span></button>
+              <button data-time="dusk" type="button" aria-pressed="false">🌇 <span>黃昏</span></button>
+              <button data-time="night" type="button" aria-pressed="false">🌙 <span>夜晚</span></button>
+              <button data-time="auto" type="button" aria-pressed="false">⏱ <span>自動</span></button>
+              <button data-time="realtime" type="button" aria-pressed="false">⌚ <span>跟隨現在</span></button>
+            </div>
+            <label class="motion-toggle"><input id="reducedMotion" type="checkbox"><span class="switch"></span><span>減少動態</span></label>
+          </div>
+        </div>
+
+        <aside class="explore-rail" aria-label="探索進度與主題">
+          <section class="rail-card progress-card">
+            <div class="rail-label">你的探索地圖 <span id="progressCount">0 / 6</span></div>
+            <div class="progress-track"><span id="progressFill"></span></div>
+            <div class="progress-detail"><span>已走訪的島</span><button class="text-button" id="resetProgress" type="button">重設</button></div>
+            <div class="progress-dots" id="progressDots" aria-label="島嶼探索狀態"></div>
+          </section>
+          <section class="rail-card theme-card">
+            <div class="rail-label">島嶼色調</div>
+            <div class="theme-options" role="group" aria-label="選擇介面主題">
+              <button class="theme-option" data-theme-choice="morning" type="button" aria-pressed="true"><i class="theme-swatch swatch-morning"></i><span>晨光</span></button>
+              <button class="theme-option" data-theme-choice="mist" type="button" aria-pressed="false"><i class="theme-swatch swatch-mist"></i><span>海霧</span></button>
+              <button class="theme-option" data-theme-choice="night" type="button" aria-pressed="false"><i class="theme-swatch swatch-night"></i><span>夜海</span></button>
+            </div>
+          </section>
+          <section class="rail-card bag-card">
+            <div class="rail-card-title"><span>🎒 探索背包</span><button class="tiny-button" id="clearBag" type="button" title="清空背包">清空</button></div>
+            <div class="inventory" id="inventory" aria-live="polite"></div>
+            <p class="bag-hint">撿起沙灘上的貝殼，和居民交換小禮物。純屬遊戲互動。</p>
+          </section>
+          <button class="discussion-card" id="openCenter" type="button">
+            <span class="discussion-icon">✎</span><span><strong>走進討論教室</strong><small>把五座島的想法帶回生活</small></span><span class="arrow">↗</span>
+          </button>
+        </aside>
+      </section>
+
+      <section class="content-grid">
+        <div class="places-section" id="places">
+          <div class="section-head"><div><span class="eyebrow">島上正在發生的事</span><h2>選一座島，開始生活體驗</h2></div><span class="section-count">01 — 05 <i></i> 中央島</span></div>
+          <div class="search-row"><label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="搜尋島嶼、情境或 5R 想法" aria-label="搜尋島嶼和內容"><kbd>⌘ K</kbd></label><button class="outline-button" id="listMode" type="button">☷ <span>純文字清單</span></button></div>
+          <div id="placeCards" class="place-cards"></div>
+          <div id="listView" class="list-view" hidden></div>
+          <div class="guide-row">
+            <div class="guide-avatar">鷺</div><div class="guide-copy"><strong>問小鷺</strong><span>從網站內容找答案，並告訴你資料來自哪座島。</span></div>
+            <label class="guide-input"><input id="guideInput" type="search" placeholder="例如：物品壞了可以怎麼辦？" aria-label="詢問小鷺"><button id="guideAsk" type="button" aria-label="送出問題">送出</button></label>
+          </div>
+          <div id="guideAnswer" class="guide-answer" aria-live="polite" hidden></div>
+        </div>
+        <aside class="side-notes">
+          <div class="why-card"><div class="hand-drawn-star">✳</div><span class="eyebrow">把日常變成好選擇</span><h3>愛護環境，<br>從生活裡的選擇開始。</h3><p>先想一想、妥善使用、分享、修理或依規範回收，每個情境都可以多一種觀察方式。</p><div class="why-decoration" aria-hidden="true"><span>✿</span><span>⌁</span><span>✦</span></div></div>
+          <div class="quiz-card"><div class="quiz-topline"><span class="quiz-icon">?</span><span>島嶼小測驗</span><span class="quiz-progress" id="quizProgress">0 / 6</span></div><h3>準備好檢查你的 5R 觀察力了嗎？</h3><p>每座島都有一題，完成探索後就能挑戰。</p><button class="quiz-start" id="quizStart" type="button">開始小測驗 <span>→</span></button></div>
+          <button id="certificateBtn" class="certificate-card" type="button" disabled><span class="certificate-icon">✧</span><span><strong>探索完成證書</strong><small>走訪並完成所有島嶼小測驗後開啟</small></span><span>↗</span></button>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="footer-brand"><span class="brand-mark small-mark">木</span><span><strong>木語重生-5R實踐</strong><small>鷺江國中｜校園循環・環境實作與你同行</small></span></div><div class="footer-note"><strong>示意情境說明</strong><span>情境、居民台詞、策略與題目為依現有介紹撰寫的示意草稿，尚未經校方或專業人員審閱。</span><span>這只是部分經驗的模擬，每個人的感受都不一樣。</span></div><div class="source-note"><strong>資料來源</strong><span>本頁依造島包提供的島名與簡介改寫情境，未能讀取指定的外部網站，未引用該網站內容。本站內容屬非官方整理，校園做法請以實際規範為準。</span></div><a class="school-link" href="https://www.ljjh.ntpc.edu.tw" target="_blank" rel="noopener noreferrer">鷺江國中網站 ↗</a><div class="copyright">由日常開始，讓物品多一段旅程。 <span>© 木語重生-5R實踐</span></div></footer>
+  </div>
+
+  <div id="panelBackdrop" class="panel-backdrop" hidden></div>
+  <aside id="detailPanel" class="detail-panel" role="dialog" aria-modal="true" aria-labelledby="panelTitle" hidden></aside>
+  <dialog id="helpDialog" class="modal">
+    <form method="dialog"><button class="modal-close" aria-label="關閉">×</button><div class="eyebrow">探索小提示</div><h2>怎麼玩這片群島？</h2><ul><li>拖曳 3D 畫面旋轉視角，滾輪或雙指縮放。</li><li>點島上的標籤或下方地點卡片，打開情境與支持模式。</li><li>點一位居民聊聊，或在沙灘點擊貝殼收進背包。</li><li>選擇白天、黃昏、夜晚或自動調整島上的光線。</li></ul><p>網站內容是 5R 校園情境的示意草稿，不代表所有人的經驗或校方正式規範。</p><button class="primary-button modal-done">知道了</button></form>
+  </dialog>
+  <dialog id="quizDialog" class="modal quiz-modal"></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
+
